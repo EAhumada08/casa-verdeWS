@@ -22,11 +22,13 @@ class Usuario extends Authenticatable
         'CodigoP',
     ];
 
-    protected $hidden = [
-        'contraseña',
-    ];
+    public function setContraseñaAttribute($value)
+    {
+        $this->attributes['contraseña'] = bcrypt($value);
+    }
 
-    protected $casts = [
-        'correo_verified_at' => 'datetime',
-    ];
+    public function getAuthPassword()
+    {
+        return $this->contraseña;
+    }
 }

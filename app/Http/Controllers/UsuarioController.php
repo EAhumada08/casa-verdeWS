@@ -30,38 +30,10 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function registrar(Request $request)
     {
-        // Validar datos de entrada
-        $validatedData = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellidoP' => 'required|string|max:255',
-            'apellidoM' => 'nullable|string|max:255',
-            'email' => 'required|string|email|max:255|unique:usuarios,email',
-            'password' => 'required|string|min:8|confirmed',
-            'calle' => 'nullable|string|max:255',
-            'ciudad' => 'nullable|string|max:255',
-            'estado' => 'nullable|string|max:255',
-            'codigo_postal' => 'nullable|string|max:10',
-        ]);
-
-        // Crear usuario
-        $usuario = Usuario::create([
-            'nombre' => $validatedData['nombre'],
-            'apellidoP' => $validatedData['apellidoP'],
-            'apellidoM' => $validatedData['apellidoM'] ?? null,
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'calle' => $validatedData['calle'] ?? null,
-            'ciudad' => $validatedData['ciudad'] ?? null,
-            'estado' => $validatedData['estado'] ?? null,
-            'codigo_postal' => $validatedData['codigo_postal'] ?? null,
-        ]);
-
-        return response()->json([
-            'message' => 'Usuario creado exitosamente.',
-            'usuario' => $usuario->makeHidden(['password']),
-        ], 201);
+        $usuario = Usuario::create($request->all());
+        return response()->json($usuario, 201);
     }
 
     /**
