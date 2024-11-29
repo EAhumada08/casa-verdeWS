@@ -36,7 +36,11 @@ class SombreroController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sombrero = Sombrero::find($id);
+        if(is_null($sombrero)){
+            return response()->json(["mensaje" => "Sombrero no encontrado"],404);
+        }
+        return response()->json($sombrero,200);
     }
 
     /**
