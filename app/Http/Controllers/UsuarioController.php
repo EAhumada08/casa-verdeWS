@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 
 class UsuarioController extends Controller
 {
@@ -22,18 +23,22 @@ class UsuarioController extends Controller
      */
     public function create(Request $request)
     {
-        // No es necesario para APIs, solo para vistas web
-        $usuario = Usuario::create($request->all());
-        return response()->json($usuario, 201);
-    }
+        try {
+            $usuario = Usuario::create($request->all());
+            return response()->json($usuario, 201);
+            //code...
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) { // Código MySQL para "Duplicate entry"
+                return response()->json([
+                    'error' => 'El correo ya está registrado.'
+                ], 409);
+            }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function registrar(Request $request)
-    {
-        $usuario = Usuario::create($request->all());
-        return response()->json($usuario, 201);
+            // Otros errores
+            return response()->json([
+                'error' => 'Ocurrió un error inesperado.'
+            ], 500);
+        }
     }
 
     /**
