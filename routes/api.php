@@ -18,3 +18,6 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 
 Route::post('/registrar', [UsuarioController::class, 'registrar']);
 Route::post('/login', [Login::class, 'login']);
+
+Route::get('/sombreros', [SombreroController::class, 'index']);
+Route::get('/sombreros/{id}', [SombreroController::class, 'show']);
