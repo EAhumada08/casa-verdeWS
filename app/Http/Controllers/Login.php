@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
+
+
 
 class Login extends Controller
 {
@@ -17,11 +19,9 @@ class Login extends Controller
 
         $usuario = Usuario::where('correo', $request->correo)->first();
 
-        if (!$usuario || !\Hash::check($request->contraseña, $usuario->contraseña)) {
+        if (!$usuario || !Hash::check($request->contraseña, $usuario->contraseña)) {
             return response()->json(['mensaje' => 'Credenciales incorrectas'], 401);
         }
-
-        // Puedes generar un token JWT u otra lógica
         return response()->json(['mensaje' => 'Login exitoso'], 200);
     }
 }
