@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sombrero extends Model
 {
+    public $timestamps = false;
     protected $fillable = [
         'nombre',
         'subtitulo',

@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdministradorController;
 use App\Http\Controllers\AdminCRUD;
 
-
+Route::get('/sombreros', [SombreroController::class, 'index']);
+Route::post('/sombreros/crear', [SombreroController::class, 'create']);
 Route::get('/administrador', [AdminCRUD::class, 'index']);
 Route::post('/administrador', [AdminCRUD::class, 'create']);
 Route::get('/administrador/{id}', [AdminCRUD::class, 'show']);
