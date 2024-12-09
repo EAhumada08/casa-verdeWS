@@ -28,3 +28,4 @@ Route::post('/login', [Login::class, 'login']);
 
 Route::get('/sombreros', [SombreroController::class, 'index']);
 Route::get('/sombreros/{id}', [SombreroController::class, 'show']);
+Route::delete('/sombreros/{id}', [SombreroController::class, 'destroy']);

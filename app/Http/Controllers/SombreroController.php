@@ -65,6 +65,15 @@ class SombreroController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+      
+        $sombrero = Sombrero::find($id);
+
+        if (!$sombrero) {
+            return response()->json(['message' => 'Producto no encontrado.'], 404);
+        }
+
+        $sombrero->delete();
+
+        return response()->json(['message' => 'Sombrero eliminado exitosamente.'], 200);
     }
 }

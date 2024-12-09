@@ -22,6 +22,6 @@ class Login extends Controller
         if (!$usuario || !Hash::check($request->contraseña, $usuario->contraseña)) {
             return response()->json(['mensaje' => 'Credenciales incorrectas'], 401);
         }
-        return response()->json(['mensaje' => 'Login exitoso'], 200);
+        return response()->json(['mensaje' => 'Login exitoso','usuario' => $usuario], 200);
     }
 }
